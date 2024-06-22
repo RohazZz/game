@@ -26,10 +26,32 @@ namespace game
         private int current_digit;
         private int index = 0;
 
-        private bool player_turn = true;
-
         private int playerScores = 0;
         private int botScores = 0;
+
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            for (int i = 0; i < 52; i++)
+            {
+                array[i] = 1 + i / 4;
+            }
+            Shuffle(array);
+
+            for (int i = 0; i < col; i++)
+            {
+                for (int j = 0; j < row; j++)
+                {
+                    player_matrix[i, j] = 0;
+                    bot_matrix[i, j] = 0;
+                }
+            }
+
+            current_digit = array[index];
+            textBox_CurrentDigit.Text = current_digit.ToString();
+        }
 
         static int CalculateScores(int[,] matrix)
         {
@@ -98,17 +120,17 @@ namespace game
         {
             if (playerScores > botScores)
             {
-                MessageBox.Show($"Вы победили со счетом {playerScores} {botScores}");
+                MessageBox.Show($"Вы победили со счетом: ваши очки {playerScores} | очки противика {botScores}");
                 Application.Exit();
             }
             else if (playerScores < botScores)
             {
-                MessageBox.Show($"Вы проиграли со счетом {playerScores} {botScores}");
+                MessageBox.Show($"Вы проиграли со счетом: ваши очки {playerScores} | очки противика {botScores}");
                 Application.Exit();
             }
             else
             {
-                MessageBox.Show($"Игра закончилась ничьёй {playerScores} {botScores}");
+                MessageBox.Show($"Игра закончилась ничьёй: ваши очки {playerScores} | очки противика {botScores}");
                 Application.Exit();
             }
         }
@@ -187,7 +209,6 @@ namespace game
                 playerScores = CalculateScores(player_matrix);
                 textBox_playerScore.Text = playerScores.ToString();
                 next_digit();
-                player_turn = false;
                 bot_turn();
             }
             else
@@ -236,7 +257,6 @@ namespace game
                     i = random.Next(0, row);
                     j = random.Next(0, col);
                 } while (bot_matrix[i, j] != 0);
-                Console.WriteLine($"строка = {i} колонка = {j}");
                 bot_matrix[i, j] = current_digit;
             }
 
@@ -244,8 +264,6 @@ namespace game
             textBox_botScore.Text = botScores.ToString();
             refreshBotbuttons();
             next_digit();
-
-            player_turn = true;
 
             if (index >= 50)
             {
@@ -261,35 +279,6 @@ namespace game
 
         }
 
-        public Form1()
-        {
-            InitializeComponent();
-
-            for (int i = 0; i < 52; i++)
-            {
-                array[i] = 1 + i / 4;
-            }
-            Shuffle(array);
-
-            for (int i = 0; i < col; i++)
-            {
-                for (int j = 0; j < row; j++)
-                {
-                    player_matrix[i, j] = 0;
-                }
-            }
-
-            for (int i = 0; i < col; i++)
-            {
-                for (int j = 0; j < row; j++)
-                {
-                    bot_matrix[i, j] = 0;
-                }
-            }
-
-            current_digit = array[index];
-            textBox_CurrentDigit.Text = current_digit.ToString();
-        }
 
         private void button0_0_Click(object sender, EventArgs e)
         {
@@ -476,6 +465,15 @@ namespace game
 
 
             button4_4.Text = player_matrix[4, 4].ToString();
+        }
+
+        private void button_rule_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("У вас есть квадратное поле 5х5 клеток. Вам нужно заполнить его числами от 1 до 13." +
+    " Каждое число будет выпадать из набора карточек, каждое из которых содержит число от 1 до 13," +
+    " причем каждое число встречается четырежды. Когда выпадает число, запишите его в любую клетку поля." +
+    " Переставлять числа после записи нельзя. Продолжайте заполнять клетки случайными числами до заполнения всего поля." +
+    " Очки выдаются за комбинации чисел в ряду, столбце и диагонали");
         }
     }
 }

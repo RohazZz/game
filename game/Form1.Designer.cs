@@ -84,6 +84,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button_rule = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button0_0
@@ -562,11 +563,22 @@
             this.label3.TabIndex = 55;
             this.label3.Text = "Следующее число";
             // 
+            // button_rule
+            // 
+            this.button_rule.Location = new System.Drawing.Point(381, 13);
+            this.button_rule.Name = "button_rule";
+            this.button_rule.Size = new System.Drawing.Size(218, 59);
+            this.button_rule.TabIndex = 56;
+            this.button_rule.Text = "Правила";
+            this.button_rule.UseVisualStyleBackColor = true;
+            this.button_rule.Click += new System.EventHandler(this.button_rule_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 511);
+            this.Controls.Add(this.button_rule);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -688,6 +700,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button_rule;
     }
 }
 
